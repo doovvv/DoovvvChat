@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/pic">
+        <file>src/d82fc9ba4ee2d7695d4e3da0cf5bcdb.jpg</file>
+        <file>src/chat.svg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>style/style.qss</file>
+    </qresource>
+</RCC>
