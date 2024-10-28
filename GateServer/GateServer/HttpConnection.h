@@ -3,8 +3,9 @@
 class HttpConnection :public std::enable_shared_from_this<HttpConnection> {
 	friend class LogicSystem;
 public:
-	HttpConnection(tcp::socket socket);
+	HttpConnection(boost::asio::io_context& ioc); //如果 io_context 支持拷贝构造，那么两个 io_context 对象可能会试图同时控制同一组底层资源，这会导致资源的双重释放或未定义的行为。
 	void Start();
+	boost::asio::ip::tcp::socket& GetSocket();
 private:
 	void CheckDeadline();
 	void WriteResponse();

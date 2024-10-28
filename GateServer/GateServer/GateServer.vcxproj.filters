@@ -42,6 +42,9 @@
     <ClInclude Include="ConfigMgr.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AsioIOContextPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CServer.cpp">
@@ -68,9 +71,14 @@
     <ClCompile Include="ConfigMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="AsioIOContextPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\config.ini" />
     <None Include="..\message.proto" />
+    <None Include="config.ini">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

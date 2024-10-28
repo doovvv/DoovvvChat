@@ -1,6 +1,6 @@
 #include "HttpConnection.h"
 #include "LogicSystem.h"
-HttpConnection::HttpConnection(tcp::socket socket):_socket(std::move(socket)) {
+HttpConnection::HttpConnection(boost::asio::io_context& ioc):_socket(ioc)/*这是一个新的socket*/ {
 
 }
 void HttpConnection::Start() {
@@ -24,6 +24,10 @@ void HttpConnection::Start() {
 			std::cout << "exception is" << exp.what() << std::endl;
 		}
 		});
+}
+boost::asio::ip::tcp::socket& HttpConnection::GetSocket()
+{
+	return _socket;
 }
 unsigned char ToHex(unsigned char x)
 {
