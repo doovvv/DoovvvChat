@@ -14,7 +14,7 @@ void HttpConnection::Start() {
 			}
 			std::cout << "read bytes: " << bytes_transferred << std::endl;
 			boost::ignore_unused(bytes_transferred);
-			self->HandleReq();
+			self->HandleReq(); //处理请求
 			self->CheckDeadline();
 			//http是短连接就不继续读了
 
@@ -109,7 +109,7 @@ void HttpConnection::HandleReq() {
 	}
 	else if (_request.method() == http::verb::post) {
 		PreParseGetParam();
-		bool success = LogicSystem::GetInstance()->HandlePost(_get_url, shared_from_this()); //处理get请求
+		bool success = LogicSystem::GetInstance()->HandlePost(_get_url, shared_from_this()); //处理post请求
 		if (!success) {
 			_response.result(http::status::not_found);
 			_response.set(http::field::content_type, "text/plain");//head

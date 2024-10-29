@@ -47,7 +47,7 @@ LogicSystem::LogicSystem() {
 			beast::ostream(con->_response.body()) << json_str;
 			return false;
 		}
-		GetVarifyRsp response = VarifyGrpcClient::GetInstance()->GetVarifyCode(src_root["email"].asString());
+		GetVarifyRsp response = VarifyGrpcClient::GetInstance()->GetVarifyCode(src_root["email"].asString()); //rpc
 		root["error"] = response.error();
 		root["email"] = src_root["email"];
 		std::string json_str = root.toStyledString();

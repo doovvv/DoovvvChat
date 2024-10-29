@@ -1,7 +1,7 @@
 #include "CServer.h"
 #include "ConfigMgr.h"
 int main() {
-	ConfigMgr configMgr;
+	auto& configMgr = ConfigMgr::Inst();
 	std::string port_string = configMgr["GateServer"]["Port"];
 	unsigned short port = atoi(port_string.c_str());
 	try

@@ -25,5 +25,3 @@ enum ErrorCodes {
 	ErrorJson = 1001,
 	RPCFailed = 1002
 };
-class ConfigMgr;
-extern ConfigMgr configMgr;

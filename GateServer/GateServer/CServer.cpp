@@ -6,11 +6,11 @@ _socket(ioc) {
 
 }
 void CServer::Start() {
-	auto self = shared_from_this();//防止回调还没回调对象已经被析构
+	auto self = shared_from_this();//防止回调函数还没回调对象已经被析构
 	auto& ioc = AsioIOContextPool::GetInstance()->GetIOContext(); //从连接池中取出一个iocontext，用来http收发	
-	std::shared_ptr<HttpConnection> newCon = std::make_shared<HttpConnection>(ioc);
-	boost::asio::ip::tcp::socket& socket = newCon->GetSocket();
-	_acceptor.async_accept(socket, [self,newCon](beast::error_code ec) {
+	std::shared_ptr<HttpConnection> newCon = std::make_shared<HttpConnection>(ioc); //创建一个连接
+	boost::asio::ip::tcp::socket& socket = newCon->GetSocket(); //得到该连接的socket
+	_acceptor.async_accept(socket, [self,newCon](beast::error_code ec) { //连接到客户端，此时socket与用户才建立上连接
 		try {
 			//出错，放弃连接，继续监听其他连接
 			if (ec) {
