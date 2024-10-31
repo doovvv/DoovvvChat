@@ -2,5 +2,10 @@
     "email": {
       "user": "1459569329@qq.com",
       "pass": "myizwkfkviuihiae"
+    },
+    "redis":{
+      "host": "81.68.86.146",
+      "port": 6380,
+      "passwd": "123456"
     }
 }
