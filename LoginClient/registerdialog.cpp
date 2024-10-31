@@ -84,7 +84,6 @@ void RegisterDialog::ShowTip(QString str,bool state)
 void RegisterDialog::InitHandlers()
 {
     _handlers.insert(ReqId::ID_GET_VARIFY_CODE,[this](const QJsonObject& jsonObj){
-        qDebug()<<"开始处理\n";
         int error = jsonObj["error"].toInt();
         if(error != ErrorCodes::SUCCESS){
             ShowTip("验证码发送错误",false);
@@ -94,5 +93,55 @@ void RegisterDialog::InitHandlers()
         ShowTip("验证码已经发送到你的邮箱，请注意查收",true);
         qDebug()<<"email is "<<email;
     });
+    _handlers.insert(ReqId::ID_REG_USER,[this](const QJsonObject& jsonObj){
+        int error = jsonObj["error"].toInt();
+        if(error != ErrorCodes::SUCCESS){
+            ShowTip("注册错误",false);
+            return;
+        }
+        ShowTip("注册成功！",true);
+    });
+}
+
+
+void RegisterDialog::on_confirmBtn_clicked()
+{
+    if(ui->userLineEdit->text() == ""){ //限制条件不只是不能为空，之后可以添加正则表达式
+        ShowTip(tr("用户名不能为空"), false);
+        return;
+    }
+
+    if(ui->emailLineEdit->text() == ""){
+        ShowTip(tr("邮箱不能为空"), false);
+        return;
+    }
+
+    if(ui->passLineEdit->text() == ""){
+        ShowTip(tr("密码不能为空"), false);
+        return;
+    }
+
+    if(ui->verifyLineEdit->text() == ""){
+        ShowTip(tr("确认密码不能为空"), false);
+        return;
+    }
+
+    if(ui->verifyLineEdit->text() != ui->passLineEdit->text()){
+        ShowTip(tr("密码和确认密码不匹配"), false);
+        return;
+    }
+
+    if(ui->checkLineEdit->text() == ""){
+        ShowTip(tr("验证码不能为空"), false);
+        return;
+    }
+    QJsonObject json_obj;
+    json_obj["user"] = ui->userLineEdit->text();
+    json_obj["email"] = ui->emailLineEdit->text();
+    json_obj["password"] = ui->passLineEdit->text();
+    json_obj["confirm"] = ui->verifyLineEdit->text();
+    json_obj["varifycode"] = ui->checkLineEdit->text();
+    HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix+"/user_register"), //提交注册信息
+                                        json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
 }
 

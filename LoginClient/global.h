@@ -27,6 +27,10 @@ enum ErrorCodes{
     SUCCESS = 0,
     ERR_JSON = 1,//json解析失败
     ERR_NETWORK = 2,//网络错误
+    ErrorJson = 1001,
+    RPCFailed = 1002,
+    VarifyExpired =1003,
+    VarifyCodeErr = 1004
 };
 extern QString gate_url_prefix;
 #endif // GLOBAL_H
