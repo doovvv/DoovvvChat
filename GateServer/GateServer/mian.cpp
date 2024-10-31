@@ -1,5 +1,7 @@
 #include "CServer.h"
 #include "ConfigMgr.h"
+#include <sw/redis++/redis++.h>
+using namespace sw::redis;
 int main() {
 	auto& configMgr = ConfigMgr::Inst();
 	std::string port_string = configMgr["GateServer"]["Port"];

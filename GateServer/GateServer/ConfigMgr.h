@@ -31,7 +31,7 @@ public:
 		_config_mgr.clear();
 	}
 	static ConfigMgr& Inst() { //单例模式
-		static ConfigMgr cfgMgr;
+		static ConfigMgr cfgMgr; //使得每次使用Inst得到的都是同一个对象
 		return cfgMgr;
 	}
 	SectionInfo operator[](const std::string& section) {

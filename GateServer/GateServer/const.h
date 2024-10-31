@@ -23,5 +23,8 @@ using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 enum ErrorCodes {
 	Success = 0,
 	ErrorJson = 1001,
-	RPCFailed = 1002
+	RPCFailed = 1002,
+	VarifyExpired =1003,
+	VarifyCodeErr = 1004
 };
+#define CODEPREFIX "code_"
