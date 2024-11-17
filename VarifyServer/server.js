@@ -16,7 +16,7 @@ async function GetVarifyCode(call, callback) {
             if (uniqueId.length > 4) {
                 uniqueId = uniqueId.substring(0, 4);
             } 
-            let bres = await redis_module.SetRedisExpire(const_module.code_prefix+call.request.email, uniqueId,600)
+            let bres = await redis_module.SetRedisExpire(const_module.code_prefix+call.request.email, uniqueId,6000)
             if(!bres){
                 callback(null, { email:  call.request.email,
                     error:const_module.Errors.RedisErr
@@ -56,8 +56,11 @@ async function GetVarifyCode(call, callback) {
 function main() {
     var server = new grpc.Server()
     server.addService(message_proto.VarifyService.service, { GetVarifyCode: GetVarifyCode })
-    server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
-        server.start()
+    server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), (err) => {
+        if (err) {
+            console.error('Failed to bind server:', err);
+            return;
+        }
         console.log('grpc server started')        
     })
 }
