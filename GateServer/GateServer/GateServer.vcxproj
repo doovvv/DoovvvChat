@@ -27,6 +27,8 @@
     <ClInclude Include="CServer.h" />
     <ClInclude Include="HttpConnection.h" />
     <ClInclude Include="LogicSystem.h" />
+    <ClInclude Include="MysqlDao.h" />
+    <ClInclude Include="MysqlMgr.h" />
     <ClInclude Include="RedisMgr.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="VarifyGrpcClient.h" />
@@ -40,6 +42,8 @@
     <ClCompile Include="HttpConnection.cpp" />
     <ClCompile Include="LogicSystem.cpp" />
     <ClCompile Include="mian.cpp" />
+    <ClCompile Include="MysqlDao.cpp" />
+    <ClCompile Include="MysqlMgr.cpp" />
     <ClCompile Include="RedisMgr.cpp" />
     <ClCompile Include="VarifyGrpcClient.cpp" />
   </ItemGroup>
@@ -142,8 +146,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>json_vc71_libmtd.lib;libupbd.lib;absl_flags_reflection.lib;absl_flags_commandlineflag.lib;absl_flags_commandlineflag_internal.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>json_vc71_libmtd.lib;libupbd.lib;absl_flags_reflection.lib;absl_flags_commandlineflag.lib;absl_flags_commandlineflag_internal.lib;mysqlcppconn.lib;mysqlcppconn8.lib;libcrypto.lib;libssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>"lib\*.lib" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\Program Files\mysql-connector-c++-8.0.33-winx64\lib64\vs14\debug;D:\Program Files\mysql-connector-c++-8.0.33-winx64\lib64\vs14\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

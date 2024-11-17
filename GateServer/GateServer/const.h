@@ -14,7 +14,7 @@
 #include <json/json.h>
 #include <json/value.h>
 #include <json/reader.h>
-
+#define CODEPREFIX "code_"
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
 namespace net = boost::asio;            // from <boost/asio.hpp>
@@ -25,6 +25,16 @@ enum ErrorCodes {
 	ErrorJson = 1001,
 	RPCFailed = 1002,
 	VarifyExpired =1003,
-	VarifyCodeErr = 1004
+	VarifyCodeErr = 1004,
+	UserExisted = 1005
 };
-#define CODEPREFIX "code_"
+//自己封装的Defer类
+class Defer {
+public:
+	Defer(std::function<void()> func) :_func(func) {}
+	~Defer() {
+		_func();
+	}
+private:
+	std::function<void()> _func;
+};

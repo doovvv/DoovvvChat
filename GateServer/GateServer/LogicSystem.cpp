@@ -2,6 +2,7 @@
 #include "LogicSystem.h"
 #include "VarifyGrpcClient.h"
 #include "RedisMgr.h"
+#include "MysqlMgr.h"
 void LogicSystem::ReqGet(std::string url, HttpHandler handler) {
 	_get_handlers.insert(make_pair(url, handler));
 }
@@ -86,10 +87,21 @@ LogicSystem::LogicSystem() {
 			beast::ostream(con->_response.body()) << jsonstr;
 			return true;
 		}
+		//判断用户是否存在
+		int uid = MysqlMgr::GetInstance()->RegUser(src_root["user"].asString(),
+			src_root["email"].asString(), src_root["password"].asString());
+		if (uid == 0 || uid == -1) {
+			std::cout << "user or email exist" << std::endl;
+			root["error"] = ErrorCodes::UserExisted;
+			std::string jsonstr = root.toStyledString();
+			beast::ostream(con->_response.body()) << jsonstr;
+			return true;
+		}
 		root["error"] = 0;
 		root["email"] = src_root["email"];
+		root["uid"] = uid;
 		root["user"] = src_root["user"].asString();
-		root["passwd"] = src_root["passwd"].asString();
+		root["password"] = src_root["password"].asString();
 		root["confirm"] = src_root["confirm"].asString();
 		root["varifycode"] = src_root["varifycode"].asString();
 		std::string jsonstr = root.toStyledString();
