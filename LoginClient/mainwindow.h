@@ -15,7 +15,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+private slots:
+    void SlotSwitchLogin();
 private:
     Ui::MainWindow *ui;
     LoginDialog* _login_dlg;
