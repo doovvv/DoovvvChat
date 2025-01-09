@@ -2,3 +2,11 @@ GateServer/.vs
 GateServer/x64
 GateServer/GateServer/lib
 GateServer/GateServer/x64
+ChatServer/.vs
+ChatServer/x64
+ChatServer/ChatServer/lib
+ChatServer/ChatServer/x64
+CtatusServer/.vs
+CtatusServer/x64
+CtatusServer/CtatusServer/lib
+CtatusServer/CtatusServer/x64
